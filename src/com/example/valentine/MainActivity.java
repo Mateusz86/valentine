@@ -46,9 +46,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 
 		intent.setType("image/*");
-
+         //tmp
 		startActivityForResult(intent, REQUEST_ID);
-
+ 
 	}
 
 	@Override
