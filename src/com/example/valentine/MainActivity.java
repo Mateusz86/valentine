@@ -7,9 +7,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -23,6 +25,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/VanessasValentine.otf");
+		Button btn = (Button) findViewById(R.id.btn1);
+		btn.setTypeface(tf);
 
 		ImageView image = (ImageView) findViewById(R.id.picture1);
 		image.setOnClickListener(this);
@@ -59,25 +65,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			try {
 				stream = getContentResolver().openInputStream(data.getData());
 
-<<<<<<< HEAD
 				BitmapFactory.Options options=new BitmapFactory.Options();
 				options.inSampleSize = 8;
-				Bitmap original=BitmapFactory.decodeStream(stream,null,options);
+			     original=BitmapFactory.decodeStream(stream,null,options);
 				
-			//	Bitmap original = BitmapFactory.decodeStream(stream);
-=======
-<<<<<<< HEAD
-				original = BitmapFactory.decodeStream(stream);
-				
-				
-				(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
-=======
-				Bitmap original = BitmapFactory.decodeStream(stream);
->>>>>>> 9bb460b12039797e556ba2c820852f1a0d1f32d5
+
+
 				
 				(this.img1)
 						.setImageBitmap(Bitmap.createScaledBitmap(original,
->>>>>>> 92c1d332933f38a273a9953d53446090d61f2632
 								original.getWidth(),
 								original.getHeight(), true));
 			} catch (Exception e) {
