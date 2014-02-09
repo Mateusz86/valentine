@@ -59,10 +59,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			try {
 				stream = getContentResolver().openInputStream(data.getData());
 
+<<<<<<< HEAD
 				original = BitmapFactory.decodeStream(stream);
 				
 				
 				(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
+=======
+				Bitmap original = BitmapFactory.decodeStream(stream);
+				
+				(this.img1)
+						.setImageBitmap(Bitmap.createScaledBitmap(original,
+>>>>>>> 92c1d332933f38a273a9953d53446090d61f2632
 								original.getWidth(),
 								original.getHeight(), true));
 			} catch (Exception e) {
