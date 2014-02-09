@@ -32,6 +32,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		btn.setTypeface(tf);
 
 		ImageView image = (ImageView) findViewById(R.id.picture1);
+//		image.getBackground().setAlpha(128);
 		image.setOnClickListener(this);
 		ImageView image2 = (ImageView) findViewById(R.id.picture2);
 		image2.setOnClickListener(this);
