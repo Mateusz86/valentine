@@ -44,7 +44,8 @@
            android:textStyle="bold"
            android:layout_below="@+id/picture2"
            android:layout_height="wrap_content"
-           android:textSize="30sp"
+           android:textSize="36sp"
+           android:textColor="#b61500"
            android:background="@android:color/white"
            android:text="Losuj"/>
     </RelativeLayout>

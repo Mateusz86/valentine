@@ -21,9 +21,15 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
+<<<<<<< HEAD
+        public static final int animation_heart=0x7f020000;
+        public static final int background_for_valentines=0x7f020001;
+        public static final int border_image_view=0x7f020002;
+=======
         public static final int background_for_valentines=0x7f020000;
         public static final int border_image_view=0x7f020001;
         public static final int heart=0x7f020002;
+>>>>>>> 9d04d266abf0fa68d9eeb1a98c28b4919908a418
         public static final int ic_launcher=0x7f020003;
         public static final int photo_camera=0x7f020004;
         public static final int pictureicon=0x7f020005;
