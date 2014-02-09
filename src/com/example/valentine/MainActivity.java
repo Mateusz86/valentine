@@ -46,26 +46,38 @@ public class MainActivity extends Activity implements OnClickListener {
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 
 		intent.setType("image/*");
-
+         //tmp
 		startActivityForResult(intent, REQUEST_ID);
-
+ 
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		InputStream stream = null;
+		Bitmap original = null;
 		if (requestCode == REQUEST_ID && resultCode == Activity.RESULT_OK) {
 			try {
 				stream = getContentResolver().openInputStream(data.getData());
 
+<<<<<<< HEAD
 				BitmapFactory.Options options=new BitmapFactory.Options();
 				options.inSampleSize = 8;
 				Bitmap original=BitmapFactory.decodeStream(stream,null,options);
 				
 			//	Bitmap original = BitmapFactory.decodeStream(stream);
+=======
+<<<<<<< HEAD
+				original = BitmapFactory.decodeStream(stream);
+				
+				
+				(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
+=======
+				Bitmap original = BitmapFactory.decodeStream(stream);
+>>>>>>> 9bb460b12039797e556ba2c820852f1a0d1f32d5
 				
 				(this.img1)
 						.setImageBitmap(Bitmap.createScaledBitmap(original,
+>>>>>>> 92c1d332933f38a273a9953d53446090d61f2632
 								original.getWidth(),
 								original.getHeight(), true));
 			} catch (Exception e) {
