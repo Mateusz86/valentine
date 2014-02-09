@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getActionBar().hide();
 		Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/VanessasValentine.otf");
 		Button btn = (Button) findViewById(R.id.btn1);
