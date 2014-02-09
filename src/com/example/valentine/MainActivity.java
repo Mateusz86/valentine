@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				stream = getContentResolver().openInputStream(data.getData());
 
 				Bitmap original = BitmapFactory.decodeStream(stream);
+				
 				(this.img1)
 						.setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
