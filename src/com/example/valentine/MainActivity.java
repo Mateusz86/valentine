@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.hardware.Camera.Face;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,16 +72,23 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				BitmapFactory.Options options=new BitmapFactory.Options();
 				options.inSampleSize = 8;
+				options.inPreferredConfig = Bitmap.Config.RGB_565;
+				options.inScaled = false;
+				options.inDither = false;
+				
 			    original=BitmapFactory.decodeStream(stream,null,options);
 				
 
-			    FaceDetector fd = new FaceDetector(original.getWidth(),original.getHeight(), 1);
-			    android.media.FaceDetector.Face[] faces = new android.media.FaceDetector.Face[1];
+			    FaceDetector fd = new FaceDetector(original.getWidth(),original.getHeight(), 5);
+			    android.media.FaceDetector.Face[] faces = new android.media.FaceDetector.Face[5];
 			    int c = fd.findFaces(original, faces);
+			    Log.d("face", c+"");
 			    if(c>0){
 			    	(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
 								original.getHeight(), true));
+			    }else{
+                    //TOODO -  dodac powiadomienie ¿e nie wykry³o twarzy
 			    }
 			    
 			    
