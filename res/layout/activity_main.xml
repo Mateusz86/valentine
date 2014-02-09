@@ -39,6 +39,7 @@
             android:src="@drawable/photo_camera"/>
         
        <Button android:layout_width="wrap_content"
+           android:id="@+id/btn1"
            android:layout_marginLeft="40dp"
            android:paddingLeft="20dp"
            android:paddingRight="20dp"

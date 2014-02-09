@@ -7,9 +7,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -23,6 +25,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/VanessasValentine.otf");
+		Button btn = (Button) findViewById(R.id.btn1);
+		btn.setTypeface(tf);
 
 		ImageView image = (ImageView) findViewById(R.id.picture1);
 		image.setOnClickListener(this);

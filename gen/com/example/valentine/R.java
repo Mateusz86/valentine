@@ -28,7 +28,8 @@ public final class R {
         public static final int pictureicon=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f080002;
+        public static final int action_settings=0x7f080003;
+        public static final int btn1=0x7f080002;
         public static final int picture1=0x7f080000;
         public static final int picture2=0x7f080001;
     }
