@@ -2,12 +2,14 @@ package com.example.valentine;
 
 import java.io.InputStream;
 
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.hardware.Camera.Face;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,14 +71,20 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				BitmapFactory.Options options=new BitmapFactory.Options();
 				options.inSampleSize = 8;
-			     original=BitmapFactory.decodeStream(stream,null,options);
+			    original=BitmapFactory.decodeStream(stream,null,options);
 				
 
-
-				(this.img1)
-						.setImageBitmap(Bitmap.createScaledBitmap(original,
+			    FaceDetector fd = new FaceDetector(original.getWidth(),original.getHeight(), 1);
+			    android.media.FaceDetector.Face[] faces = new android.media.FaceDetector.Face[1];
+			    int c = fd.findFaces(original, faces);
+			    if(c>0){
+			    	(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
 								original.getHeight(), true));
+			    }
+			    
+			    
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 
