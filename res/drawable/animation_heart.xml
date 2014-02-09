@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
     
-
+    <item android:drawable="@drawable/heart_0019_Layer_1" android:duration="400" />
+    <item android:drawable="@drawable/heart_0018_Layer_2" android:duration="400" />
+    <item android:drawable="@drawable/heart_0017_Layer_3" android:duration="400" />
+    <item android:drawable="@drawable/heart_0016_Layer_4" android:duration="400" />
+    <item android:drawable="@drawable/heart_0015_Layer_5" android:duration="400" />
+    <item android:drawable="@drawable/heart_0014_Layer_6" android:duration="400" />
 </animation-list>
