@@ -54,13 +54,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		InputStream stream = null;
+		Bitmap original = null;
 		if (requestCode == REQUEST_ID && resultCode == Activity.RESULT_OK) {
 			try {
 				stream = getContentResolver().openInputStream(data.getData());
 
-				Bitmap original = BitmapFactory.decodeStream(stream);
-				(this.img1)
-						.setImageBitmap(Bitmap.createScaledBitmap(original,
+				original = BitmapFactory.decodeStream(stream);
+				
+				
+				(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
 								original.getHeight(), true));
 			} catch (Exception e) {
