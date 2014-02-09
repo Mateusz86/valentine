@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		ImageView image = (ImageView) findViewById(R.id.picture1);
 //		image.getBackground().setAlpha(128);
 		image.setOnClickListener(this);
+		
+//		image.setBackgroundResource(R.drawable.animation_heart);
+//		AnimationDrawable frameAnimation = (AnimationDrawable) image.getBackground();
+//		frameAnimation.start();
+		
 		ImageView image2 = (ImageView) findViewById(R.id.picture2);
 		image2.setOnClickListener(this);
 	}

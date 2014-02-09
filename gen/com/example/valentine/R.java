@@ -21,18 +21,33 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-<<<<<<< HEAD
         public static final int animation_heart=0x7f020000;
         public static final int background_for_valentines=0x7f020001;
         public static final int border_image_view=0x7f020002;
-=======
-        public static final int background_for_valentines=0x7f020000;
-        public static final int border_image_view=0x7f020001;
-        public static final int heart=0x7f020002;
->>>>>>> 9d04d266abf0fa68d9eeb1a98c28b4919908a418
-        public static final int ic_launcher=0x7f020003;
-        public static final int photo_camera=0x7f020004;
-        public static final int pictureicon=0x7f020005;
+        public static final int heart=0x7f020003;
+        public static final int heart1=0x7f020004;
+        public static final int heart10=0x7f020005;
+        public static final int heart11=0x7f020006;
+        public static final int heart12=0x7f020007;
+        public static final int heart13=0x7f020008;
+        public static final int heart14=0x7f020009;
+        public static final int heart15=0x7f02000a;
+        public static final int heart16=0x7f02000b;
+        public static final int heart17=0x7f02000c;
+        public static final int heart18=0x7f02000d;
+        public static final int heart19=0x7f02000e;
+        public static final int heart2=0x7f02000f;
+        public static final int heart20=0x7f020010;
+        public static final int heart3=0x7f020011;
+        public static final int heart4=0x7f020012;
+        public static final int heart5=0x7f020013;
+        public static final int heart6=0x7f020014;
+        public static final int heart7=0x7f020015;
+        public static final int heart8=0x7f020016;
+        public static final int heart9=0x7f020017;
+        public static final int ic_launcher=0x7f020018;
+        public static final int photo_camera=0x7f020019;
+        public static final int pictureicon=0x7f02001a;
     }
     public static final class id {
         public static final int action_settings=0x7f080003;
