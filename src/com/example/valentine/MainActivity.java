@@ -17,16 +17,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	private static final int REQUEST_ID = 1;
 	private static final int HALF = 2;
 	
-	private ImageView image, img1;
+	private ImageView  img1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		 image = (ImageView) findViewById(R.id.picture1);
-
-		 image.setOnClickListener(this);
+		ImageView image = (ImageView) findViewById(R.id.picture1);
+		image.setOnClickListener(this);
+		ImageView image2 = (ImageView) findViewById(R.id.picture2);
+		image2.setOnClickListener(this);
 	}
 
 	@Override
@@ -70,6 +71,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (stream != null) {
 				try {
 					stream.close();
+					this.img1 = null;
 
 				} catch (Exception e) {
 					e.printStackTrace();
