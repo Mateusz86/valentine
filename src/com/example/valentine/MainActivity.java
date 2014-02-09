@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 
 
-				
 				(this.img1)
 						.setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
