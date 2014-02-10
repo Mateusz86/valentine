@@ -52,10 +52,13 @@ public final class R {
         public static final int ic_launcher=0x7f020018;
         public static final int photo_camera=0x7f020019;
         public static final int pictureicon=0x7f02001a;
-        public static final int selector_button_analysis=0x7f02001b;
+        public static final int popup_black=0x7f02001b;
+        public static final int selector_button_analysis=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f090007;
+        public static final int action_settings=0x7f090009;
+        public static final int back=0x7f090008;
+        public static final int bargraph=0x7f090007;
         public static final int baseLayout=0x7f090000;
         public static final int btn1=0x7f090003;
         public static final int hearts=0x7f090005;

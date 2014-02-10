@@ -1,16 +1,21 @@
 package com.example.valentine;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 import android.media.FaceDetector;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
@@ -41,6 +46,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private LinearLayout secondLayout;
 	private LinearLayout scoreLayout;
 	private Handler handler = new Handler();
+	private ImageView image;
+	private ImageView image2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +61,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		analysisButton.setOnClickListener(this);
 
-		ImageView image = (ImageView) findViewById(R.id.picture1);
+		image = (ImageView) findViewById(R.id.picture1);
 		image.setTag(0);
 		image.setOnClickListener(this);
 		
-		ImageView image2 = (ImageView) findViewById(R.id.picture2);
+		image2 = (ImageView) findViewById(R.id.picture2);
 		image2.setOnClickListener(this);
 		image2.setTag(1);
 		
@@ -166,8 +173,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		else {
 		animationAlpha = new AlphaAnimation(1.0f, 0.0f);
-		animationAlpha.setFillAfter(true);
-		animationAlpha.setFillEnabled(true);
+
 		analysisButton.setEnabled(false);
 		animationAlpha.setAnimationListener(new AnimationListener() {
 			
@@ -185,11 +191,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
+				baseLayout.setVisibility(View.GONE);
 				secondLayout.setVisibility(View.VISIBLE);
 				final ImageView heart = (ImageView) secondLayout.findViewById(R.id.hearts);
 				heart.setBackgroundResource(R.drawable.animation_heart);
 				final AnimationDrawable frameAnimation = (AnimationDrawable) heart.getBackground();
 				frameAnimation.start();
+				//disable imagesListner
+				image.setOnClickListener(null);
+				image2.setOnClickListener(null);
 				
 	           	TimerTask timerTask = new TimerTask() {
 
@@ -242,10 +252,78 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
+
 				secondLayout.setVisibility(View.GONE);
 				scoreLayout.setVisibility(View.VISIBLE);
+				
+				ArrayList<Bar> points = new ArrayList<Bar>();
+				Bar d2 = new Bar();
+				d2.setColor(Color.parseColor("#FFBB33"));
+				d2.setName("L O V E");
+				int number = (int) (Math.random()*100);
+				d2.setValue(number);
+				points.add(d2);
+		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
+		        assert g != null;
+		        g.setUnit("%");
+		        g.appendUnit(true);
+				g.setBars(points);
+				
+				Button back = (Button) scoreLayout.findViewById(R.id.back);
+				back.setTag(3);
+				back.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						setUpAllView();
+					}
+
+				});
+
 			}
 		});
 		
 	}
+	
+	
+	private void setUpAllView() {
+		scoreLayout.setVisibility(View.GONE);
+		secondLayout.setVisibility(View.GONE);
+		baseLayout.setVisibility(View.VISIBLE);
+		
+		//setUpListnersAll
+		analysisButton.setEnabled(true);
+		analysisButton.setOnClickListener(this);
+		image.setTag(0);
+		image.setOnClickListener(this);	
+		image2.setTag(1);
+		image2.setOnClickListener(this);
+		
+
+	}
+	
+	@Override
+	public void onBackPressed() {
+		showDialogWindow();
+	}
+
+	private void showDialogWindow() {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setMessage("Kliknij TAK ¿eby wyjœæ z aplikacji").setCancelable(false).setPositiveButton("TAK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				MainActivity.this.finish();
+			}
+		}).setNegativeButton("NIE", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = alertDialog.create();
+		alert.show();
+	}
+
 }
