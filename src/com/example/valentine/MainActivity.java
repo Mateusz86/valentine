@@ -3,13 +3,15 @@ package com.example.valentine;
 import java.io.InputStream;
 
 import android.media.FaceDetector;
+import android.media.FaceDetector.Face;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.graphics.Typeface;
-import android.hardware.Camera.Face;
+//import android.hardware.Camera.Face;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -80,10 +82,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 
 			    FaceDetector fd = new FaceDetector(original.getWidth(),original.getHeight(), 5);
-			    android.media.FaceDetector.Face[] faces = new android.media.FaceDetector.Face[5];
+			    Face[] faces = new Face[5];
 			    int c = fd.findFaces(original, faces);
 			    Log.d("face", c+"");
 			    if(c>0){
+			    	Face face = faces[0];
+			        Log.d("f","Face found with " + face.confidence() + " confidence!");
+			        Log.d("f","Face  eye distance " + face.eyesDistance());
 			    	(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
 								original.getWidth(),
 								original.getHeight(), true));
