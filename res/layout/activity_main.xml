@@ -11,6 +11,7 @@
     tools:context=".MainActivity" >
 
     <LinearLayout 
+        android:id="@+id/baseLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
@@ -46,10 +47,41 @@
            android:layout_height="wrap_content"
            android:textSize="36sp"
            android:textColor="#b61500"
-           android:background="@android:color/white"
+           android:background="@drawable/selector_button_analysis"
+		   android:visibility="gone"
            android:text="Losuj"/>
     </RelativeLayout>
 
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/secondLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+     
+        <ImageView 
+            android:id="@+id/hearts"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/border_image_view"
+            />       
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/scoreLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+     
+ 		<TextView 
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:text="WYNIKI :D w tym layoucie + jakis button wstecz do fazy poczatkowej"/>      
     </LinearLayout>
  
     

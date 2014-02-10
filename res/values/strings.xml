@@ -4,5 +4,5 @@
     <string name="app_name">Valentine</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+	<string name="no_deceted_face">Nie udało sie rozpoznać twarzy</string>
 </resources>
