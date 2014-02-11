@@ -48,6 +48,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Handler handler = new Handler();
 	private ImageView image;
 	private ImageView image2;
+	private ImageView heart;
+	private AnimationDrawable frameAnimation;
+	private int number;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		startActivityForResult(intent, REQUEST_ID);
 		}
 		else {
+			number = (int) (Math.random()*100);
+
 			doAnimation(baseLayout,2);
 		}
  
@@ -193,33 +198,24 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onAnimationEnd(Animation animation) {
 				baseLayout.setVisibility(View.GONE);
 				secondLayout.setVisibility(View.VISIBLE);
-				final ImageView heart = (ImageView) secondLayout.findViewById(R.id.hearts);
+				heart = (ImageView) secondLayout.findViewById(R.id.hearts);
+				heart.setAlpha(1.0f);
 				heart.setBackgroundResource(R.drawable.animation_heart);
-				final AnimationDrawable frameAnimation = (AnimationDrawable) heart.getBackground();
+				frameAnimation = (AnimationDrawable) heart.getBackground();
 				frameAnimation.start();
 				//disable imagesListner
 				image.setOnClickListener(null);
 				image2.setOnClickListener(null);
 				
-	           	TimerTask timerTask = new TimerTask() {
+		       	handler.post(new Runnable() {
+					
+									@Override
+									public void run() {
+					            		hideAnimationHeart(heart);
 
-                    @Override
-                    public void run() {
-                    	handler.post(new Runnable() {
-							
-							@Override
-							public void run() {
-			            		frameAnimation.stop();	
-			            		hideAnimationHeart(heart);
-
-							}
-						});
-
-                    }
-                };
-
-                Timer timer = new Timer("TIMER");
-                timer.schedule(timerTask, 4000); 
+									}
+								});
+				
 			}
 		});
 		}
@@ -234,7 +230,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		animationAlpha.setFillAfter(true);
 		animationAlpha.setFillEnabled(true);
 		animationAlpha.setDuration(2000);
-		animationAlpha.setStartOffset(50);
+		animationAlpha.setStartOffset(4000);
 		heart.startAnimation(animationAlpha);
 		animationAlpha.setAnimationListener(new AnimationListener() {
 			
@@ -252,7 +248,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-
+			
+				handler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 				secondLayout.setVisibility(View.GONE);
 				scoreLayout.setVisibility(View.VISIBLE);
 				
@@ -260,7 +264,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				Bar d2 = new Bar();
 				d2.setColor(Color.parseColor("#FFBB33"));
 				d2.setName("L O V E");
-				int number = (int) (Math.random()*100);
 				d2.setValue(number);
 				points.add(d2);
 		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
@@ -268,7 +271,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		        g.setUnit("%");
 		        g.appendUnit(true);
 				g.setBars(points);
-				
+			
 				Button back = (Button) scoreLayout.findViewById(R.id.back);
 				back.setTag(3);
 				back.setOnClickListener(new OnClickListener() {
