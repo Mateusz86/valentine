@@ -1,9 +1,14 @@
 package com.example.valentine;
 
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+
+
+
 
 
 import android.media.FaceDetector;
@@ -12,11 +17,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Typeface;
 //import android.hardware.Camera.Face;
@@ -27,6 +34,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 //import android.hardware.Camera.Face;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -39,10 +47,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import static java.util.Arrays.asList;
+
 public class MainActivity extends Activity implements OnClickListener {
 
 	private static final int REQUEST_ID = 1;
 	private static final int HALF = 2;
+	private static final float PHOTO_WIDTH = 175; 
+	private static final float PHOTO_HEIGHT = 175; 
+	
+	private static final ArrayList<String> SLOGANS = new ArrayList<String>(asList(
+	
+		"Dlaczego nie ?","Czego siê spodziewa³eœ ?",".. a mo¿e na randkê !",
+		"warto spróbowaæ", " No to do dzie³a !","zrób to dziœ !","czekaj na znak",
+		"czasem trzeba iœæ pod wiatr","bierz co chcesz","powiedz to !","jak za pierwszym razem",
+		"jestem za a nawet przeciw"
+	));
+	
 	private boolean isLoadFirstImage=false;
 	private boolean isLoadSecondImage=false;
 	private View viewClickedImage;
@@ -55,6 +76,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Handler handler = new Handler();
 	private ImageView image;
 	private ImageView image2;
+	private ImageView heart;
+	private AnimationDrawable frameAnimation;
+	private int number;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +128,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		startActivityForResult(intent, REQUEST_ID);
 		}
 		else {
+			number = (int) (Math.random()*100);
+
 			doAnimation(baseLayout,2);
 		}
  
@@ -134,18 +160,21 @@ public class MainActivity extends Activity implements OnClickListener {
 			    original=BitmapFactory.decodeStream(stream,null,options);   
 			    
 			    FaceDetector fd = new FaceDetector(original.getWidth(),original.getHeight(), 5);
-
+               
 			    Face[] faces = new Face[5];
 
 			    int c = fd.findFaces(original, faces);
 			    Log.d("Face", c+" -- " );
 			    if(c>0){
 			    	Face face = faces[0];
+			    	
 			        Log.d("f","Face found with " + face.confidence() + " confidence!");
 			        Log.d("f","Face  eye distance " + face.eyesDistance());
-			    	(this.img1).setImageBitmap(Bitmap.createScaledBitmap(original,
-								original.getWidth(),
-								original.getHeight(), true));
+			        Point point = new Point(100,100);
+			       
+			       Log.e("",face.pose(face.EULER_X)+"");
+			       Log.e("",face.pose(face.EULER_Y)+"");
+			    	(this.img1).setImageBitmap(Crop(original,point,50));
 			    }else{
 			    	Toast.makeText(this, getResources().getString(R.string.no_deceted_face), Toast.LENGTH_LONG).show();
 			    }
@@ -176,7 +205,39 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	
+	public static int convertDpToPixel(float dp, Context context){
+	    Resources resources = context.getResources();
+	    DisplayMetrics metrics = resources.getDisplayMetrics();
+	    int px = (int)( dp * (metrics.densityDpi / 160f));
+	    return px;
+	}
 
+	
+	public Bitmap Crop(Bitmap bitmap, Point point, int distance) {
+
+	    final int value;
+	    int x1,x2,y1,y2;
+	    
+	    x1=Math.abs((int)(point.x-distance));
+	    x2=(x1+(2*distance)) < bitmap.getWidth()?(2*distance):bitmap.getWidth();
+	   // x2=(point.x+distance) <c ? (int)(point.x+distance) : bitmap.getWidth();
+	    
+	    y1=Math.abs((int)(point.y-distance));
+	    y2=(y1+(2*distance)) < bitmap.getHeight()?(2*distance):bitmap.getHeight();
+	    ///y2=(point.y+distance) < bitmap.getHeight() ? (int)(point.y+distance) : bitmap.getHeight();
+	    
+	    
+	    
+	    Log.e("bitmap",bitmap.getWidth()+" "+bitmap.getWidth());
+	    Log.e("point ",x1+" "+y1+" "+x2+" "+y2+" : "+convertDpToPixel(PHOTO_WIDTH,this)+" "+convertDpToPixel(PHOTO_HEIGHT,this));
+
+//	   final Bitmap finalBitmap = Bitmap.createBitmap(bitmap,x1,y1, x2, y2);
+	  
+	   Bitmap finalBitmap = Bitmap.createBitmap(bitmap,x1,y1,x2, y2);
+	   return Bitmap.createScaledBitmap(finalBitmap, convertDpToPixel(PHOTO_WIDTH,this), convertDpToPixel(PHOTO_HEIGHT,this), true);
+	}
+	
 	private void doAnimation(View v,int i) {
 		Animation animationAlpha;
 		if(i==1) {
@@ -204,33 +265,24 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onAnimationEnd(Animation animation) {
 				baseLayout.setVisibility(View.GONE);
 				secondLayout.setVisibility(View.VISIBLE);
-				final ImageView heart = (ImageView) secondLayout.findViewById(R.id.hearts);
+				heart = (ImageView) secondLayout.findViewById(R.id.hearts);
+				heart.setAlpha(1.0f);
 				heart.setBackgroundResource(R.drawable.animation_heart);
-				final AnimationDrawable frameAnimation = (AnimationDrawable) heart.getBackground();
+				frameAnimation = (AnimationDrawable) heart.getBackground();
 				frameAnimation.start();
 				//disable imagesListner
 				image.setOnClickListener(null);
 				image2.setOnClickListener(null);
 				
-	           	TimerTask timerTask = new TimerTask() {
+		       	handler.post(new Runnable() {
+					
+									@Override
+									public void run() {
+					            		hideAnimationHeart(heart);
 
-                    @Override
-                    public void run() {
-                    	handler.post(new Runnable() {
-							
-							@Override
-							public void run() {
-			            		frameAnimation.stop();	
-			            		hideAnimationHeart(heart);
-
-							}
-						});
-
-                    }
-                };
-
-                Timer timer = new Timer("TIMER");
-                timer.schedule(timerTask, 4000); 
+									}
+								});
+				
 			}
 		});
 		}
@@ -245,7 +297,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		animationAlpha.setFillAfter(true);
 		animationAlpha.setFillEnabled(true);
 		animationAlpha.setDuration(2000);
-		animationAlpha.setStartOffset(50);
+		animationAlpha.setStartOffset(4000);
 		heart.startAnimation(animationAlpha);
 		animationAlpha.setAnimationListener(new AnimationListener() {
 			
@@ -263,7 +315,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-
+			
+				handler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 				secondLayout.setVisibility(View.GONE);
 				scoreLayout.setVisibility(View.VISIBLE);
 				
@@ -271,7 +331,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				Bar d2 = new Bar();
 				d2.setColor(Color.parseColor("#FFBB33"));
 				d2.setName("L O V E");
-				int number = (int) (Math.random()*100);
 				d2.setValue(number);
 				points.add(d2);
 		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
@@ -279,7 +338,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		        g.setUnit("%");
 		        g.appendUnit(true);
 				g.setBars(points);
-				
+			
 				Button back = (Button) scoreLayout.findViewById(R.id.back);
 				back.setTag(3);
 				back.setOnClickListener(new OnClickListener() {
@@ -338,3 +397,4 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 }
+
