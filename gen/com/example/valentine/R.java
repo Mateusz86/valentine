@@ -60,8 +60,7 @@ public final class R {
         public static final int selector_button_analysis=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f090009;
-        public static final int back=0x7f090008;
+        public static final int action_settings=0x7f090008;
         public static final int baseLayout=0x7f090002;
         public static final int btn1=0x7f090003;
         public static final int hearts=0x7f090005;

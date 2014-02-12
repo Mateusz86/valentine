@@ -67,6 +67,7 @@
         android:id="@+id/secondLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/frame"
         android:visibility="gone"
         android:gravity="center">
      
@@ -86,7 +87,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="bottom|center">
         
         <TextView 
             android:id="@+id/wynik"
@@ -94,19 +95,13 @@
  		    android:layout_height="wrap_content"
  		    android:text="Lorem imsum"
  		    android:textSize="36sp"
+ 		    android:paddingLeft="5dp"
+ 		    android:paddingRight="5dp"
+ 		    android:background="#FFFFFF"
            android:textColor="#b61500"
             />
        	    
- 	<!-- 	<com.example.valentine.BarGraph
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:id="@+id/bargraph"/> -->
- 		
- 		<Button 
- 		    android:id="@+id/back"
- 		    android:layout_width="wrap_content"
- 		    android:layout_height="wrap_content"
- 		    android:text="Cofnij"/>
+ 
  		
     </LinearLayout>
  
