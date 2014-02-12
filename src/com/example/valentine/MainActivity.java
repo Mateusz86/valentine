@@ -14,6 +14,13 @@ import java.util.TimerTask;
 
 
 
+
+
+
+import com.facebook.Request.Callback;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+
 import android.R.layout;
 import android.media.FaceDetector;
 import android.media.FaceDetector.Face;
@@ -83,12 +90,23 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ImageView heart;
 	private AnimationDrawable frameAnimation;
 	private int number;
+	
+	
+	// facebook
+	private UiLifecycleHelper uiHelper;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getActionBar().hide();
+		
+		//facebook
+//		uiHelper = new UiLifecycleHelper(this,null);
+//	    uiHelper.onCreate(savedInstanceState);
+		
+		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/VanessasValentine.otf");
 		analysisButton = (Button) findViewById(R.id.btn1);
@@ -107,14 +125,45 @@ public class MainActivity extends Activity implements OnClickListener {
 		baseLayout= (LinearLayout) findViewById(R.id.baseLayout);
 		secondLayout= (LinearLayout) findViewById(R.id.secondLayout);
 		scoreLayout = (LinearLayout) findViewById(R.id.scoreLayout);
+		
+//		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+//        .setLink("https://developers.facebook.com/android")
+//        .build();
+//        uiHelper.trackPendingDialogCall(shareDialog.present());
 	}
+	
+	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	protected void onResume() {
+//	    super.onResume();
+//	    uiHelper.onResume();
+//	}
+//
+//	@Override
+//	protected void onSaveInstanceState(Bundle outState) {
+//	    super.onSaveInstanceState(outState);
+//	    uiHelper.onSaveInstanceState(outState);
+//	}
+//
+//	@Override
+//	public void onPause() {
+//	    super.onPause();
+//	    uiHelper.onPause();
+//	}
+//
+//	@Override
+//	public void onDestroy() {
+//	    super.onDestroy();
+//	    uiHelper.onDestroy();
+//	}
+//
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
 
 	@Override
 	public void onClick(View v) {
@@ -141,6 +190,21 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+		// facebook
+//		uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+//	        @Override
+//	        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+//	            Log.e("Activity", String.format("Error: %s", error.toString()));
+//	        }
+//
+//	        @Override
+//	        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+//	            Log.i("Activity", "Success!");
+//	        }
+//	    });
+		
+		
 		InputStream stream = null;
 		Bitmap original = null;
 		if (requestCode == REQUEST_ID && resultCode == Activity.RESULT_OK) {
@@ -322,7 +386,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				Random rand = new Random();
                 int length = SLOGANS.size();
-				int  n = rand.nextInt(length) + 1;
+				int  n = rand.nextInt(length);
 				
 				TextView wynik = (TextView)scoreLayout.findViewById(R.id.wynik);
 				wynik.setText(SLOGANS.get(n));
@@ -397,6 +461,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		AlertDialog alert = alertDialog.create();
 		alert.show();
 	}
+	
+
 
 }
 
