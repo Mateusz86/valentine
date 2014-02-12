@@ -60,11 +60,11 @@ public final class R {
         public static final int action_settings=0x7f090009;
         public static final int back=0x7f090008;
         public static final int bargraph=0x7f090007;
-        public static final int baseLayout=0x7f090000;
+        public static final int baseLayout=0x7f090002;
         public static final int btn1=0x7f090003;
         public static final int hearts=0x7f090005;
-        public static final int picture1=0x7f090001;
-        public static final int picture2=0x7f090002;
+        public static final int picture1=0x7f090000;
+        public static final int picture2=0x7f090001;
         public static final int scoreLayout=0x7f090006;
         public static final int secondLayout=0x7f090004;
     }
