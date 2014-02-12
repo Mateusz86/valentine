@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <item android:drawable="@drawable/heart1" android:duration="50" />
+    <item android:drawable="@drawable/a1" android:duration="50" />
+    <item android:drawable="@drawable/a2" android:duration="50" />
+    <item android:drawable="@drawable/a3" android:duration="50" />
+
+    
+    <!-- <item android:drawable="@drawable/heart1" android:duration="50" />
     <item android:drawable="@drawable/heart2" android:duration="50" />
     <item android:drawable="@drawable/heart3" android:duration="50" />
     <item android:drawable="@drawable/heart4" android:duration="50" />
@@ -19,5 +24,5 @@
     <item android:drawable="@drawable/heart16" android:duration="50" />
     <item android:drawable="@drawable/heart17" android:duration="50" />
     <item android:drawable="@drawable/heart18" android:duration="50" />
-    <item android:drawable="@drawable/heart19" android:duration="50" />   
+    <item android:drawable="@drawable/heart19" android:duration="50" />    -->
 </animation-list>

@@ -16,7 +16,8 @@
     android:layout_marginBottom="20dp"
     
     >
-            <ImageView 
+        
+        <ImageView 
             android:id="@+id/picture1"
             android:layout_width="150dp"
             android:layout_height="140dp"
@@ -86,11 +87,20 @@
         android:visibility="gone"
         android:orientation="vertical"
         android:gravity="center">
+        
+        <TextView 
+            android:id="@+id/wynik"
+            android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:text="Lorem imsum"
+ 		    android:textSize="36sp"
+           android:textColor="#b61500"
+            />
        	    
- 		<com.example.valentine.BarGraph
+ 	<!-- 	<com.example.valentine.BarGraph
         android:layout_width="100dp"
         android:layout_height="200dp"
-        android:id="@+id/bargraph"/>
+        android:id="@+id/bargraph"/> -->
  		
  		<Button 
  		    android:id="@+id/back"

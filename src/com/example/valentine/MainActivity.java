@@ -1,8 +1,8 @@
 package com.example.valentine;
 
 import java.io.InputStream;
-
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,6 +11,10 @@ import java.util.TimerTask;
 
 
 
+
+
+
+import android.R.layout;
 import android.media.FaceDetector;
 import android.media.FaceDetector.Face;
 import android.os.Bundle;
@@ -45,8 +49,8 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import static java.util.Arrays.asList;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -167,19 +171,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			    Log.d("Face", c+" -- " );
 			    if(c>0){
 			    	Face face = faces[0];
-			    	
-			        Log.d("f","Face found with " + face.confidence() + " confidence!");
-			        Log.d("f","Face  eye distance " + face.eyesDistance());
-			        Point point = new Point(100,100);
-			       
-			       Log.e("",face.pose(face.EULER_X)+"");
-			       Log.e("",face.pose(face.EULER_Y)+"");
-			    	(this.img1).setImageBitmap(Crop(original,point,50));
+			    	PointF point = new PointF();
+			    	face.getMidPoint(point);
+			    	Log.e("face",point.x+" "+point.y+" "+face.eyesDistance());
+			    	(this.img1).setImageBitmap(Crop(original,point,(int)face.eyesDistance()*2));
 			    }else{
 			    	Toast.makeText(this, getResources().getString(R.string.no_deceted_face), Toast.LENGTH_LONG).show();
 			    }
 			    		    
-			    Log.d("Face ++",  " isLoadFirstImage =" +isLoadFirstImage + "isLoadSecondImage = " + isLoadSecondImage + "FirstAnimationButton =" +isFirstAnimationButton);
+			    
 				if(isLoadFirstImage==true&&isLoadSecondImage==true && isFirstAnimationButton==true) { 
 					isFirstAnimationButton=false;
 					doAnimation(analysisButton,1);
@@ -214,25 +214,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	
-	public Bitmap Crop(Bitmap bitmap, Point point, int distance) {
+	public Bitmap Crop(Bitmap bitmap, PointF point, int distance) {
 
 	    final int value;
 	    int x1,x2,y1,y2;
 	    
 	    x1=Math.abs((int)(point.x-distance));
 	    x2=(x1+(2*distance)) < bitmap.getWidth()?(2*distance):bitmap.getWidth();
-	   // x2=(point.x+distance) <c ? (int)(point.x+distance) : bitmap.getWidth();
+	  
 	    
 	    y1=Math.abs((int)(point.y-distance));
 	    y2=(y1+(2*distance)) < bitmap.getHeight()?(2*distance):bitmap.getHeight();
-	    ///y2=(point.y+distance) < bitmap.getHeight() ? (int)(point.y+distance) : bitmap.getHeight();
-	    
-	    
-	    
-	    Log.e("bitmap",bitmap.getWidth()+" "+bitmap.getWidth());
-	    Log.e("point ",x1+" "+y1+" "+x2+" "+y2+" : "+convertDpToPixel(PHOTO_WIDTH,this)+" "+convertDpToPixel(PHOTO_HEIGHT,this));
 
-//	   final Bitmap finalBitmap = Bitmap.createBitmap(bitmap,x1,y1, x2, y2);
 	  
 	   Bitmap finalBitmap = Bitmap.createBitmap(bitmap,x1,y1,x2, y2);
 	   return Bitmap.createScaledBitmap(finalBitmap, convertDpToPixel(PHOTO_WIDTH,this), convertDpToPixel(PHOTO_HEIGHT,this), true);
@@ -327,17 +320,26 @@ public class MainActivity extends Activity implements OnClickListener {
 				secondLayout.setVisibility(View.GONE);
 				scoreLayout.setVisibility(View.VISIBLE);
 				
-				ArrayList<Bar> points = new ArrayList<Bar>();
-				Bar d2 = new Bar();
-				d2.setColor(Color.parseColor("#FFBB33"));
-				d2.setName("L O V E");
-				d2.setValue(number);
-				points.add(d2);
-		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
-		        assert g != null;
-		        g.setUnit("%");
-		        g.appendUnit(true);
-				g.setBars(points);
+				Random rand = new Random();
+                int length = SLOGANS.size();
+				int  n = rand.nextInt(length) + 1;
+				
+				TextView wynik = (TextView)scoreLayout.findViewById(R.id.wynik);
+				wynik.setText(SLOGANS.get(n));
+				SLOGANS.remove(n);
+				
+				
+//				ArrayList<Bar> points = new ArrayList<Bar>();
+//				Bar d2 = new Bar();
+//				d2.setColor(Color.parseColor("#FFBB33"));
+//				d2.setName("L O V E");
+//				d2.setValue(number);
+//				points.add(d2);
+//		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
+//		        assert g != null;
+//		        g.setUnit("%");
+//		        g.appendUnit(true);
+//				g.setBars(points);
 			
 				Button back = (Button) scoreLayout.findViewById(R.id.back);
 				back.setTag(3);
