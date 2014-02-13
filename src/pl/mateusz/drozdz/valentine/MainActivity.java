@@ -1,4 +1,4 @@
-package com.example.valentine;
+package pl.mateusz.drozdz.valentine;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,10 +17,14 @@ import java.util.TimerTask;
 
 
 
-import com.facebook.Request.Callback;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.FacebookDialog;
+//import com.facebook.Request.Callback;
+//import com.facebook.UiLifecycleHelper;
+//import com.facebook.widget.FacebookDialog;
 
+
+
+
+import pl.mateusz.drozdz.valentine.R;
 import android.R.layout;
 import android.media.FaceDetector;
 import android.media.FaceDetector.Face;
@@ -69,9 +73,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private static final ArrayList<String> SLOGANS = new ArrayList<String>(asList(
 	
-		"Dlaczego nie ?","Czego siê spodziewa³eœ ?",".. a mo¿e na randkê !",
-		"warto spróbowaæ", " No to do dzie³a !","zrób to dziœ !","czekaj na znak",
-		"czasem trzeba iœæ pod wiatr","bierz co chcesz","powiedz to !","jak za pierwszym razem",
+		"Dlaczego nie ?","Czego sie spodziewales ?",".. a moze na randke !",
+		"warto sprobowac", " No to do dziela !","zrob to dzis !","czekaj na znak",
+		"czasem trzeba isc pod wiatr","bierz co chcesz","powiedz to !","jak za pierwszym razem",
 		"jestem za a nawet przeciw"
 	));
 	
@@ -93,7 +97,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	
 	// facebook
-	private UiLifecycleHelper uiHelper;
+//	private UiLifecycleHelper uiHelper;
 	
 
 	@Override
@@ -105,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		//facebook
 //		uiHelper = new UiLifecycleHelper(this,null);
 //	    uiHelper.onCreate(savedInstanceState);
-		
+//		
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/VanessasValentine.otf");
@@ -302,46 +306,26 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		else {
 		animationAlpha = new AlphaAnimation(1.0f, 0.0f);
+		secondLayout.setVisibility(View.VISIBLE);
+		heart = (ImageView) secondLayout.findViewById(R.id.hearts);
+		heart.setAlpha(1.0f);
+		heart.setBackgroundResource(R.drawable.animation_heart);
+		frameAnimation = (AnimationDrawable) heart.getBackground();
+		frameAnimation.start();
+		//disable imagesListner
+		image.setOnClickListener(null);
+		image2.setOnClickListener(null);
+		
+       	handler.post(new Runnable() {
+			
+							@Override
+							public void run() {
+			            		hideAnimationHeart(heart);
 
+							}
+						});
 		analysisButton.setEnabled(false);
-		animationAlpha.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				baseLayout.setVisibility(View.GONE);
-				secondLayout.setVisibility(View.VISIBLE);
-				heart = (ImageView) secondLayout.findViewById(R.id.hearts);
-				heart.setAlpha(1.0f);
-				heart.setBackgroundResource(R.drawable.animation_heart);
-				frameAnimation = (AnimationDrawable) heart.getBackground();
-				frameAnimation.start();
-				//disable imagesListner
-				image.setOnClickListener(null);
-				image2.setOnClickListener(null);
-				
-		       	handler.post(new Runnable() {
-					
-									@Override
-									public void run() {
-					            		hideAnimationHeart(heart);
-
-									}
-								});
-				
-			}
-		});
+		
 		}
 		animationAlpha.setDuration(2000);
 		animationAlpha.setStartOffset(50);
@@ -377,66 +361,29 @@ public class MainActivity extends Activity implements OnClickListener {
 					
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
 						
 					}
 				});
 				secondLayout.setVisibility(View.GONE);
 				scoreLayout.setVisibility(View.VISIBLE);
+				analysisButton.setVisibility(View.GONE);
 				
 				Random rand = new Random();
                 int length = SLOGANS.size();
 				int  n = rand.nextInt(length);
 				
 				TextView wynik = (TextView)scoreLayout.findViewById(R.id.wynik);
+				Typeface tf = Typeface.createFromAsset(getAssets(),
+		                "fonts/VanessasValentine.otf");
+				wynik.setTypeface(tf);
 				wynik.setText(SLOGANS.get(n));
 				SLOGANS.remove(n);
-				
-				
-//				ArrayList<Bar> points = new ArrayList<Bar>();
-//				Bar d2 = new Bar();
-//				d2.setColor(Color.parseColor("#FFBB33"));
-//				d2.setName("L O V E");
-//				d2.setValue(number);
-//				points.add(d2);
-//		        BarGraph g = (BarGraph)scoreLayout.findViewById(R.id.bargraph);
-//		        assert g != null;
-//		        g.setUnit("%");
-//		        g.appendUnit(true);
-//				g.setBars(points);
-			
-				Button back = (Button) scoreLayout.findViewById(R.id.back);
-				back.setTag(3);
-				back.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						setUpAllView();
-					}
-
-				});
 
 			}
 		});
 		
 	}
 	
-	
-	private void setUpAllView() {
-		scoreLayout.setVisibility(View.GONE);
-		secondLayout.setVisibility(View.GONE);
-		baseLayout.setVisibility(View.VISIBLE);
-		
-		//setUpListnersAll
-		analysisButton.setEnabled(true);
-		analysisButton.setOnClickListener(this);
-		image.setTag(0);
-		image.setOnClickListener(this);	
-		image2.setTag(1);
-		image2.setOnClickListener(this);
-		
-
-	}
 	
 	@Override
 	public void onBackPressed() {
