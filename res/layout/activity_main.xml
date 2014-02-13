@@ -58,7 +58,7 @@
            android:textColor="#b61500"
            android:visibility="gone"
            android:background="@drawable/selector_button_analysis"
-           android:text="Losuj"/>
+           android:text="Generuj"/>
     </RelativeLayout>
 
     </LinearLayout>
@@ -102,7 +102,7 @@
             />
        	    
  
- 		
+	
     </LinearLayout>
  
     
